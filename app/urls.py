@@ -12,6 +12,7 @@ urlpatterns = [
     url(r'^signup/', views.signupUser, name='signup'),  
 	path('logout/', views.logoutUser, name="logout"),
     url(r'^new/', views.new, name='new'),
+    url(r'^dashboard/', views.dashboard, name='dashboard'),
     url(r'^checkout/', views.checkout, name = 'checkout'),
 
 ]

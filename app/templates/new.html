@@ -96,6 +96,10 @@
 					</a>
 					<!-- Dropdown - User Information -->
 					<div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+						<a class="dropdown-item" href="{% url 'dashboard' %} ">
+							<i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400 "></i>
+							Dashboard
+						</a>
 						<div class="dropdown-divider"></div>
 						<a class="dropdown-item" href="{% url 'logout' %} ">
 							<i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400 "></i>
@@ -189,12 +193,31 @@
 			</canvas>
 			Select an item and then click Remove to delete it: <button id="submit2" class="btn btn-danger">Remove</button><br>
 			<a id="downloadLnk" style="color:white;" class="btn btn-primary" download="card.jpg">Download as image</a>
+			<button id="save"  style="color:white;" class="btn btn-success" >Save to Dashboard</button>
 
 		</div>
 		</div>
 	</div>
 	<br>
 
+
+	<div class="modal fade" id="message" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Request Successful</h5>
+					<button class="close" type="button" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">×</span>
+					</button>
+				</div>
+				<div class="modal-body">Your response has been recorded sucessfully</div>
+				<div class="modal-footer">
+					<button class="btn btn-success" type="button" data-dismiss="modal">Go back</button>
+
+				</div>
+			</div>
+		</div>
+	</div>
 
 	<div class="modal fade" id="mymodal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
 		<div class="modal-dialog">
@@ -257,6 +280,7 @@
 <script src="https://rawgit.com/kangax/fabric.js/master/dist/fabric.min.js"></script>
 
 </body>
+
 <script>
 var canvas = new fabric.Canvas('myCanvas');
 document.getElementById('file').addEventListener("change", function (e) {
@@ -477,6 +501,17 @@ function download() {
     this.href = dt;
 };
 downloadLnk.addEventListener('click', download, false);
+
+$("#save").click(function(){
+	json = JSON.stringify(canvas.toJSON());
+
+	console.log("hello world");
+	$.post( "", { csrfmiddlewaretoken: document.getElementsByName('csrfmiddlewaretoken')[0].value, canvas_data: json}, function(data){
+
+	    $("#message").modal('show');
+	} );
+
+})
 
 </script>
 </html>
