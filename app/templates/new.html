@@ -1,0 +1,482 @@
+{% load static %}
+{% load bootstrap4 %}
+<head>
+    <meta charset="UTF-8">
+	<title>Biz Card Maker</title>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+	<link href='https://fonts.googleapis.com/css?family=Lobster+Two|Raleway|Oswald:300' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+	<!-- <link rel="stylesheet" href="{% static 'css/style.css' %}"> -->
+
+	<style>
+		body{
+			background: #fff;
+		}
+
+		.logo{
+			width: 100px;
+			height: 100px;
+		}
+
+        #myCanvas{
+
+            border: 1px solid #efefef;
+            box-shadow: 2px 2px #efefef;
+
+        }
+
+        .hidden{
+
+            display:none;
+
+        }
+
+		.ScrollStyle
+		{
+			max-height: 650px;
+			overflow-y: scroll;
+		}
+
+
+    </style>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+</head>
+<body>
+
+	<!-- Navbar Code Starts here -->
+
+	<nav class="navbar navbar-expand-lg" style="background: white;">
+		<div class="container">
+
+		<!-- Logo -->
+		<a class="logo" href="/">
+			<img src="{% static 'img/logo-dark.png' %}" style="height: 100px;" alt="logo">
+		</a>
+
+		  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="icon-bar"><i class="fas fa-bars"></i></span>
+		  </button>
+
+		  <!-- navbar links -->
+		  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+			<ul class="navbar-nav ml-auto">
+			  <li class="nav-item">
+				<a class="nav-link text-dark" href="/">Home</a>
+			  </li>
+			  <li class="nav-item">
+				<a class="nav-link text-dark" href="/" data-scroll-nav="1">Services</a>
+			  </li>
+			  <li class="nav-item">
+				<a class="nav-link text-dark" href="/" data-scroll-nav="2">Portfolio</a>
+			  </li>
+			  <li class="nav-item">
+				<a class="nav-link text-dark" href="/" data-scroll-nav="3">Team</a>
+			  </li>
+			  <li class="nav-item">
+				<a class="nav-link text-dark" href="/" data-scroll-nav="4">Price</a>
+			  </li>
+			  <li class="nav-item">
+				<a class="nav-link text-dark" href="/" data-scroll-nav="5">Blog</a>
+			  </li>
+			  <li class="nav-item">
+				<a class="nav-link text-dark" href="/" data-scroll-nav="6">Contact</a>
+			  </li>
+			  <li class="nav-item">
+				<a class="nav-link active text-dark" href="/new/" >Create New Card</a>
+			  </li>
+				{% if request.session.logged_in %}
+				<li class="nav-item dropdown no-arrow">
+					<a class="nav-link dropdown-toggle text-dark" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						<span class="mr-2 d-none d-lg-inline text-gray-600 small text-dark" style="font-size: 15px;">{{request.session.logged_in.username}}</span>
+
+					</a>
+					<!-- Dropdown - User Information -->
+					<div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+						<div class="dropdown-divider"></div>
+						<a class="dropdown-item" href="{% url 'logout' %} ">
+							<i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400 "></i>
+							Logout
+						</a>
+					</div>
+				</li>
+				{% else %}
+				<li class="nav-item">
+					<button data-toggle="modal" data-target="#mymodal" style="border:none; background:transparent;">
+						<span  class="nav-link text-dark">Login</span>
+					</button>
+				</li>
+				<!-- <li class="nav-item">
+					<a class="nav-link" href="/signup/">Signup</a>
+				</li> -->
+				{% endif %}
+			</ul>
+		  </div>
+		</div>
+	</nav>
+	<br><br>
+
+	<!-- Navbar code ends here -->
+
+
+
+<div class="container-fluid">
+
+	<div class="row">
+		<div class="col-md-3">
+			<div class="ScrollStyle">
+				<img src="../static/img/white.jpg" alt="Background Image" width="90%" height="100px" style="border: 1px solid black; margin-bottom: 20px;" onclick="whitefunc()">
+				<img src="../static/img/background.jpeg" alt="Background Image" width="90%" height="100px" style="margin-bottom: 20px;" onclick="firstfunc()">
+				<img src="../static/img/bg1.png" alt="Background Image" width="90%" height="100px" style="margin-bottom: 20px;" onclick="secondfunc()">
+				<img src="../static/img/bg2.png" alt="Background Image" width="90%" height="100px" style="margin-bottom: 20px;" onclick="thirdfunc()">
+				<img src="../static/img/bg3.jpg" alt="Background Image" width="90%" height="100px" style="margin-bottom: 20px;" onclick="fourthfunc()">
+				<img src="../static/img/bg4.png" alt="Background Image" width="90%" height="100px" style="margin-bottom: 20px;" onclick="fifthfunc()">
+				<img src="../static/img/bg5.png" alt="Background Image" width="90%" height="100px" style="margin-bottom: 20px;" onclick="sixthfunc()">
+				<img src="../static/img/bg7.jpg" alt="Background Image" width="90%" height="100px" style="margin-bottom: 20px;" onclick="sevenfunc()">
+				<img src="../static/img/bg8.jpg" alt="Background Image" width="90%" height="100px" style="margin-bottom: 20px;" onclick="eightfunc()">
+				<img src="../static/img/bg9.jpg" alt="Background Image" width="90%" height="100px" style="margin-bottom: 20px;" onclick="ninefunc()">
+				<img src="../static/img/bg10.jpg" alt="Background Image" width="90%" height="100px" style="margin-bottom: 20px;" onclick="tenfunc()">
+				<img src="../static/img/bg11.jpg" alt="Background Image" width="90%" height="100px" style="margin-bottom: 20px;" onclick="elevenfunc()">
+				<img src="../static/img/bg12.jpg" alt="Background Image" width="90%" height="100px" style="margin-bottom: 20px;" onclick="twelvefunc()">
+			</div>
+		</div>
+		<!-- Second Row -->
+		<div class="col-md-9">			
+			<center><h2>Customize your business Cards</h2></center><br>
+			<div class="row">
+				<div class="col-md-3">
+					<input id="theText" type="text" placeholder="Add text" class="form-control">
+				</div>
+				<div class="col-md-2">
+					<select id="mySelect" class="form-control">
+						<option value="100">Select Weight</option>
+						<option value="bold">Bold</option>
+					</select>
+				</div>
+				<div class="col-md-2">
+					<input id="size" type="number" min="12" placeholder="Font Size" class="form-control">
+				</div>
+				<div class="col-md-2">
+					<select id="mySelect2" class="form-control">
+						<option value="">Font Family</option>
+						<option value="arial">Arial</option>
+						<option value="georgia">Georgia</option>
+						<option value="tahoma">Tahoma</option>
+						<option value="sans-serif">Sans Serif</option>
+					</select>
+				</div>
+				<div class="col-md-3">
+					<input type="color" id="color" class="form-control">
+				</div>
+
+
+			</div>
+			<br>
+			<div class="row">
+				<div class="col-md-3">
+					<button id="submit" class="btn btn-primary form-control">Add text</button><br>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6"><br>
+					<input type="file" id="file" class="form-control"><br />
+				</div>
+			</div>
+			<canvas id="myCanvas" width="592" height="354">
+			</canvas>
+			Select an item and then click Remove to delete it: <button id="submit2" class="btn btn-danger">Remove</button><br>
+			<a id="downloadLnk" style="color:white;" class="btn btn-primary" download="card.jpg">Download as image</a>
+
+		</div>
+		</div>
+	</div>
+	<br>
+
+
+	<div class="modal fade" id="mymodal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h3 class="modal-title" id="lineModalLabel">Sign In</h3>
+					<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+	
+				</div>
+				<div class="modal-body">
+	
+					<!-- content goes here -->
+					<form method="POST" action="" autocomplete="off">
+						{% csrf_token %}
+						<div class="input-group mb-3">
+							<div class="input-group-append">
+								<span class="input-group-text"><i class="fas fa-user"></i></span>
+							</div>
+
+							<input type="text" name="username" placeholder="Username..." class="form-control">
+						</div>
+
+						<div class="input-group mb-2">
+							<div class="input-group-append">
+								<span class="input-group-text"><i class="fas fa-key"></i></span>
+							</div>
+
+								<input type="password" name="password" placeholder="Password..." class="form-control" >
+						</div>
+
+							<div class="d-flex justify-content-center mt-3 login_container">
+								<input class="btn login_btn btn-primary form-control" type="submit" value="Login">
+							</div>
+							
+					</form>
+					<div>
+						<br>
+						<p style="color: black;">Don't have an account? <a href="/signup/" style="color: red;">Signup now</a></p>
+					</div>
+	
+				</div>
+				<div class="modal-footer">
+	
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
+
+
+
+
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<script src="https://rawgit.com/kangax/fabric.js/master/dist/fabric.min.js"></script>
+
+</body>
+<script>
+var canvas = new fabric.Canvas('myCanvas');
+document.getElementById('file').addEventListener("change", function (e) {
+  var file = e.target.files[0];
+  var reader = new FileReader();
+  reader.onload = function (f) {
+    var data = f.target.result;
+    fabric.Image.fromURL(data, function (img) {
+      var oImg = img.set({left: 0, top: -0, angle: 00,width:200, height:200}).scale(0.8);
+      canvas.add(oImg).renderAll();
+      var a = canvas.setActiveObject(oImg);
+      var dataURL = canvas.toDataURL({format: 'png', quality: 0.9});
+    });
+  };
+  reader.readAsDataURL(file);
+});
+var imageUrl = "{% static 'img/background.jpeg' %}";
+canvas.setBackgroundImage(imageUrl, canvas.renderAll.bind(canvas), {
+    // Optionally add an opacity lvl to the image
+    backgroundImageOpacity: 1.0,
+    backgroundImageWidth: 592,
+    backgroundImageHeight: 354,
+
+});
+
+fabric.Image.fromURL("{% static 'img/instagram.png' %}", function(oImg) {
+  oImg.left = 30;
+  oImg.top = 230;
+
+  canvas.add(oImg).renderAll();
+  var a = canvas.setActiveObject(oImg);
+  canvas.renderAll();
+});
+
+
+fabric.Image.fromURL("{% static 'img/facebook.png' %}", function(oImg) {
+  oImg.left = 30;
+  oImg.top = 270;
+
+  canvas.add(oImg).renderAll();
+  var a = canvas.setActiveObject(oImg);
+  canvas.renderAll();
+});
+
+
+fabric.Image.fromURL("{% static 'img/twitter.png' %}", function(oImg) {
+  oImg.left = 30;
+  oImg.top = 310;
+
+  canvas.add(oImg).renderAll();
+  var a = canvas.setActiveObject(oImg);
+  canvas.renderAll();
+});
+
+
+$("#submit").click(function () {
+
+
+
+//Render the text after the block (so that it is in front of the block)
+text = new fabric.Text($("#theText").val(), {
+    left: 100, //Take the block's position
+    top: 100,
+    fontSize: $("#size").val(),
+    fontWeight: $("#mySelect").val(),
+    fontFamily: $("#mySelect2").val(),
+    fill: $("#color").val()
+});
+canvas.add(text).renderAll();
+
+
+canvas.setActiveObject(text);
+canvas.renderAll();
+});
+
+$("#submit2").click(function () {
+
+canvas.remove(canvas.getActiveObject());
+
+});
+
+function whitefunc(){
+	var imageUrl = "{% static 'img/white.jpg' %}";
+	canvas.setBackgroundImage(imageUrl, canvas.renderAll.bind(canvas), {
+    // Optionally add an opacity lvl to the image
+    backgroundImageOpacity: 1.0,
+    backgroundImageWidth: 592,
+    backgroundImageHeight: 354,
+
+});
+}
+
+function secondfunc(){
+	var imageUrl = "{% static 'img/bg1.png' %}";
+	canvas.setBackgroundImage(imageUrl, canvas.renderAll.bind(canvas), {
+    // Optionally add an opacity lvl to the image
+    backgroundImageOpacity: 1.0,
+    backgroundImageWidth: 592,
+    backgroundImageHeight: 354,
+
+});
+}
+
+function thirdfunc(){
+	var imageUrl = "{% static 'img/bg2.png' %}";
+	canvas.setBackgroundImage(imageUrl, canvas.renderAll.bind(canvas), {
+    // Optionally add an opacity lvl to the image
+    backgroundImageOpacity: 1.0,
+    backgroundImageWidth: 592,
+    backgroundImageHeight: 354,
+
+});
+}
+
+function fourthfunc(){
+	var imageUrl = "{% static 'img/bg3.jpg' %}";
+	canvas.setBackgroundImage(imageUrl, canvas.renderAll.bind(canvas), {
+    // Optionally add an opacity lvl to the image
+    backgroundImageOpacity: 1.0,
+    backgroundImageWidth: 592,
+    backgroundImageHeight: 354,
+
+});
+}
+
+function fifthfunc(){
+	var imageUrl = "{% static 'img/bg4.png' %}";
+	canvas.setBackgroundImage(imageUrl, canvas.renderAll.bind(canvas), {
+    // Optionally add an opacity lvl to the image
+    backgroundImageOpacity: 1.0,
+    backgroundImageWidth: 592,
+    backgroundImageHeight: 354,
+
+});
+}
+
+function sixthfunc(){
+	var imageUrl = "{% static 'img/bg5.png' %}";
+	canvas.setBackgroundImage(imageUrl, canvas.renderAll.bind(canvas), {
+    // Optionally add an opacity lvl to the image
+    backgroundImageOpacity: 1.0,
+    backgroundImageWidth: 592,
+    backgroundImageHeight: 354,
+
+});
+}
+
+function firstfunc(){
+	var imageUrl = "{% static 'img/background.jpeg' %}";
+	canvas.setBackgroundImage(imageUrl, canvas.renderAll.bind(canvas), {
+    // Optionally add an opacity lvl to the image
+    backgroundImageOpacity: 1.0,
+    backgroundImageWidth: 592,
+    backgroundImageHeight: 354,
+
+});
+}
+
+function sevenfunc(){
+	var imageUrl = "{% static 'img/bg7.jpg' %}";
+	canvas.setBackgroundImage(imageUrl, canvas.renderAll.bind(canvas), {
+    // Optionally add an opacity lvl to the image
+    backgroundImageOpacity: 1.0,
+    backgroundImageWidth: 592,
+    backgroundImageHeight: 354,
+
+});
+}function eightfunc(){
+	var imageUrl = "{% static 'img/bg8.jpg' %}";
+	canvas.setBackgroundImage(imageUrl, canvas.renderAll.bind(canvas), {
+    // Optionally add an opacity lvl to the image
+    backgroundImageOpacity: 1.0,
+    backgroundImageWidth: 592,
+    backgroundImageHeight: 354,
+
+});
+}function ninefunc(){
+	var imageUrl = "{% static 'img/bg9.jpg' %}";
+	canvas.setBackgroundImage(imageUrl, canvas.renderAll.bind(canvas), {
+    // Optionally add an opacity lvl to the image
+    backgroundImageOpacity: 1.0,
+    backgroundImageWidth: 592,
+    backgroundImageHeight: 354,
+
+});
+}function tenfunc(){
+	var imageUrl = "{% static 'img/bg10.jpg' %}";
+	canvas.setBackgroundImage(imageUrl, canvas.renderAll.bind(canvas), {
+    // Optionally add an opacity lvl to the image
+    backgroundImageOpacity: 1.0,
+    backgroundImageWidth: 592,
+    backgroundImageHeight: 354,
+
+});
+}function elevenfunc(){
+	var imageUrl = "{% static 'img/bg11.jpg' %}";
+	canvas.setBackgroundImage(imageUrl, canvas.renderAll.bind(canvas), {
+    // Optionally add an opacity lvl to the image
+    backgroundImageOpacity: 1.0,
+    backgroundImageWidth: 592,
+    backgroundImageHeight: 354,
+
+});
+}function twelvefunc(){
+	var imageUrl = "{% static 'img/bg12.jpg' %}";
+	canvas.setBackgroundImage(imageUrl, canvas.renderAll.bind(canvas), {
+    // Optionally add an opacity lvl to the image
+    backgroundImageOpacity: 1.0,
+    backgroundImageWidth: 592,
+    backgroundImageHeight: 354,
+
+});
+}
+
+
+function download() {
+    var dt = canvas.toDataURL('image/jpeg');
+    this.href = dt;
+};
+downloadLnk.addEventListener('click', download, false);
+
+</script>
+</html>

@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+ <html lang="zxx">
+
+    
+<head>
+
+    	<!-- Metas -->
+        <meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+		<meta name="keywords" content="HTML5 Template Coco onepage themeforest" />
+		<meta name="description" content="Coco - Onepage Multi-Purpose HTML5 Template" />
+        <meta name="author" content="" />
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+        <link href='https://fonts.googleapis.com/css?family=Lobster+Two|Raleway|Oswald:300' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+        
+        {% load static %}
+        {% load bootstrap4 %}
+        {% bootstrap_css %}
+        {% bootstrap_javascript %}
+
+		<!-- Title  -->
+		<title>Card Maker</title>
+
+		<!-- Favicon -->
+		<link rel="shortcut icon" href="{% static 'img/favicon.ico' %}" />
+
+		<!-- Google Fonts -->
+		<link href="https://fonts.googleapis.com/css?family=Raleway:100,200,300,400,500,600,700,800" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Rubik:300,400,500,700,900" rel="stylesheet">
+
+		<!-- Plugins -->
+		<link rel="stylesheet" href="{% static 'css/plugins.css' %}" />
+
+        <!-- Core Style Css -->
+        <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+
+    </head>
+
+    <body>
+
+    	<!-- =====================================
+    	==== Start Loading -->
+
+    	<div class="loading">
+    		<div class="text-center middle">
+    			<div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
+    		</div>
+    	</div>
+        
+    	<!-- End Loading ====
+    	======================================= -->
+
+       
+    	<!-- =====================================
+    	==== Start Navbar -->
+
+		<nav class="navbar navbar-expand-lg">
+			<div class="container">
+
+            <!-- Logo -->
+            <a class="logo" href="/">
+                <img src="{% static 'img/logo-light.png' %}" alt="logo">          
+            </a>
+
+			  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+			    <span class="icon-bar"><i class="fas fa-bars"></i></span>
+			  </button>
+
+			  <!-- navbar links -->
+			  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+			    <ul class="navbar-nav ml-auto">
+			      <li class="nav-item">
+			        <a class="nav-link active" href="/">Home</a>
+			      </li>
+			      <li class="nav-item">
+                    <a class="nav-link" href="#" data-scroll-nav="1">Services</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="#" data-scroll-nav="3">Team</a>
+                  </li>
+			      <li class="nav-item">
+			        <a class="nav-link" href="#" data-scroll-nav="4">Price</a>
+			      </li>
+			      <li class="nav-item">
+			        <a class="nav-link" href="#" data-scroll-nav="5">Blog</a>
+			      </li>
+			      <li class="nav-item">
+			        <a class="nav-link" href="#" data-scroll-nav="6">Contact</a>
+                  </li>
+                  <li class="nav-item">
+			        <a class="nav-link" href="/new/" >Create New Card</a>
+                  </li>
+
+                    {% if request.session.logged_in %}
+                    <li class="nav-item dropdown no-arrow">
+                        <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{request.session.logged_in.username}}</span>
+
+                        </a>
+                        <!-- Dropdown - User Information -->
+                        <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="{% url 'logout' %} ">
+                                <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                                Logout
+                            </a>
+                        </div>
+                    </li>
+                    {% else %}
+                    <li class="nav-item">
+			        <button data-toggle="modal" data-target="#mymodal" style="border:none; background:transparent;">
+                        <span  class="nav-link">Login</span>
+                        </button>
+                  </li>
+                  <!-- <li class="nav-item">
+			        <a class="nav-link" href="/signup/">Signup</a>
+			      </li> -->
+                    {% endif %}
+			    </ul>
+			  </div>
+			</div>
+		</nav>
+
+    	<!-- End Navbar ====
+    	======================================= -->
+
+
+        <div class="modal fade" id="mymodal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3 class="modal-title" id="lineModalLabel">Sign In</h3>
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+        
+                    </div>
+                    <div class="modal-body">
+        
+                        <!-- content goes here -->
+                        <form method="POST" action="" autocomplete="off">
+                            {% csrf_token %}
+                            <div class="input-group mb-3">
+                                <div class="input-group-append">
+                                    <span class="input-group-text"><i class="fas fa-user"></i></span>
+                                </div>
+    
+                                <input type="text" name="username" placeholder="Username..." class="form-control">
+                            </div>
+    
+                            <div class="input-group mb-2">
+                                <div class="input-group-append">
+                                    <span class="input-group-text"><i class="fas fa-key"></i></span>
+                                </div>
+    
+                                    <input type="password" name="password" placeholder="Password..." class="form-control" >
+                            </div>
+    
+                                <div class="d-flex justify-content-center mt-3 login_container">
+                                    <input class="btn login_btn btn-primary form-control" type="submit" value="Login">
+                                </div>
+
+                        </form>
+                        <div>
+                            <br>
+                            <p style="color: black;">Don't have an account? <a href="/signup/" style="color: red;">Signup now</a></p>
+                        </div>
+        
+                    </div>
+                    <div class="modal-footer">
+        
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="mymodal2" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3 class="modal-title" id="lineModalLabel">Congratulations</h3>
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+        
+                    </div>
+                    <div class="modal-body">
+                        <h3>Your Responce has been submitted successfully!</h3>
+                        <p>Our team will contact you shortly</p>
+                    </div>
+                    <div class="modal-footer">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        

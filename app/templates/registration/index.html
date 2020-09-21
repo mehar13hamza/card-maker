@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+{% load bootstrap4 %}
+<head>
+    <meta charset="UTF-8">
+    <title>Biz Card Maker</title>
+
+    <style>
+
+        #myCanvas{
+
+            border: 1px solid #efefef;
+            box-shadow: 2px 2px #efefef;
+
+        }
+
+        .hidden{
+
+            display:none;
+
+        }
+
+
+    </style>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+</head>
+<body>
+
+<div class="container">
+
+
+<h4>Customize your business Cards</h4>
+    <input id="theText" type="text" placeholder="Add text">
+    <select id="mySelect" >
+        <option value="100">Select Weight</option>
+        <option value="bold">Bold</option>
+
+    </select>
+    <input id="size" type="number" min="12" placeholder="Font Size">
+    <select id="mySelect2" >
+        <option value="">Font Family</option>
+        <option value="arial">Arial</option>
+        <option value="georgia">Georgia</option>
+        <option value="tahoma">Tahoma</option>
+        <option value="sans-serif">Sans Serif</option>
+    </select>
+    <button id="submit" class="btn btn-primary">Add text</button><br>
+    <button id="submit2" class="btn btn-danger">Remove</button><br>
+    <input type="file" id="file"><br />
+    <canvas id="myCanvas" width="592" height="354">
+    </canvas>
+
+</div>
+
+
+
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<script src="https://rawgit.com/kangax/fabric.js/master/dist/fabric.min.js"></script>
+
+</body>
+<script>
+var canvas = new fabric.Canvas('myCanvas');
+document.getElementById('file').addEventListener("change", function (e) {
+  var file = e.target.files[0];
+  var reader = new FileReader();
+  reader.onload = function (f) {
+    var data = f.target.result;
+    fabric.Image.fromURL(data, function (img) {
+      var oImg = img.set({left: 0, top: -0, angle: 00,width:200, height:200}).scale(0.8);
+      canvas.add(oImg).renderAll();
+      var a = canvas.setActiveObject(oImg);
+      var dataURL = canvas.toDataURL({format: 'png', quality: 0.9});
+    });
+  };
+  reader.readAsDataURL(file);
+});
+var imageUrl = "{% static 'images/space.jpg' %}";
+canvas.setBackgroundImage(imageUrl, canvas.renderAll.bind(canvas), {
+    // Optionally add an opacity lvl to the image
+    backgroundImageOpacity: 1.0,
+    backgroundImageWidth: 592,
+    backgroundImageHeight: 354,
+
+});
+
+
+$("#submit").click(function () {
+
+
+
+//Render the text after the block (so that it is in front of the block)
+text = new fabric.Text($("#theText").val(), {
+    left: 100, //Take the block's position
+    top: 100,
+    fontSize: $("#size").val(),
+    fontWeight: $("#mySelect").val(),
+    fontFamily: $("#mySelect2").val(),
+    fill: 'white'
+});
+canvas.add(text).renderAll();
+
+
+canvas.setActiveObject(text);
+canvas.renderAll();
+});
+
+$("#submit2").click(function () {
+
+canvas.remove(canvas.getActiveObject());
+
+});
+
+</script>
+</html>
